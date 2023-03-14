@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block body %}
+<body>
+
+    <section class="vh-100" style="margin-top: 50px;">
+      <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          
+          <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+            <form method="post">
+              {% csrf_token %}
+              <div class="divider d-flex align-items-center my-4" style="display: flex; justify-content: center">
+                <p style="font-size: 18pt;" class="text-center fw-bold mx-3 mb-0">Sign In</p>
+              </div>
+    
+              <!-- Username input -->
+              <div class="form-outline mb-4">
+                {{ form|crispy }}
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center">
+                <!-- Checkbox -->
+                <div class="form-check mb-0">
+                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+                  <label style="font-style: italic;" class="form-check-label" for="form2Example3">
+                    Remember me
+                  </label>
+                </div>
+                <a href="/accounts/password_reset/" style="text-decoration: none; color: #f54; font-weight:700">Forgot password?</a>
+              </div>
+    
+              <div class="text-center text-lg-start mt-4 pt-2">
+                <button type="submit" class="btn btn-lg"
+                  style="padding-left: 2.5rem; padding-right: 2.5rem; background-color: teal; color: #fff; font-family: Trebuchet MS;">Login</button>
+                <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a style="color: teal; text-decoration: none" href="{% url 'signup' %}">Sign up</a></p>
+              </div>
+    
+            </form>
+          </div>
+        </div>
+      </div>
+     
+        
+      </div>
+    </section> 
+</body>
+{% endblock %}

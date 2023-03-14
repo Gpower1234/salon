@@ -1,0 +1,82 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block head %}
+<title>Home</title>
+{% endblock %}
+
+
+{% block body %}
+
+  <!--Hero 1 Start-->
+
+    <div style="margin-top: -70px;" class="bg bg-light text-dark pt-5 pb-5">
+        <div class="text-center  pt-5 pb-5">
+          <img style="height: 120px; width: 120px; border-radius: 50%" src="{% static 'media/image1.jpg' %}">
+            <p class="fs-4 mt-3" style="color: #222; font-size: 14pt; font-family: Trebuchet MS; font-style: italic">Welcome to</p>
+            <h1 style="margin-bottom: 20px; color: teal;" class="display-1 cGreen me-2 ms-2">Goodness Hair Braid</h1>
+            <p style="color: #444; margin-top: -20px">2602A Eldridge Parkway South, Houston 77082</p>
+            <p class="fs-4 mt-3"></p>           
+            <div class="text-center" style="color: #444; box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.15); margin-bottom: 20px; padding: 10px 0 20px 0">
+              <h4 style="color: #222; font-family: Trebuchet MS; margin-top: 20px">Payment</h4>
+              <div style="display: flex; justify-content: center;">
+                <p>Cash <i class="fas fa-dollar-sign"></i></p>
+                <p style="margin-left: 10px;">Master card <i class="fab fa-cc-mastercard"></i></p>
+                <p style="margin-left: 10px;">Visa card <i class="fab fa-cc-visa"></i></p>
+                
+              </div>
+              
+            </div>
+            <div class="text-center" style="color: black; box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.15); margin-bottom: 20px; padding: 10px 0 20px 0">
+              <h4 style="color: #222; font-family: Trebuchet MS;">Policies</h4>
+              <div style="color: #444; justify-content: center;">
+                <p><i class="fas fa-dollar-sign"></i> Deposit required</p>
+                <p style="margin-left: 10px;"><i class="fas fa-brush"></i> Come with hair washed and detangled</p>
+                <p style="margin-left: 10px;"><i class="fas fa-ruler"></i> Length requirement is 14 inches</p>
+                <p style="margin-left: 10px;"><i class="fas fa-child"></i> Ages 13+ only</p>
+                <p style="margin-left: 10px;"><i class="fas fa-clock"></i> Late appointments canceled after 15 minutes</p>
+                <p style="margin-left: 10px;"><i class="fas fa-map-marker-alt fa-1x"></i> Residents in Houston only</p>
+              </div>
+            </div>
+
+            <div class="text-center" style="color: #444; margin-bottom: 20px; padding: 10px 0 20px 0">
+              <h4 style="color: #222; font-family: Trebuchet MS;">Availability</h4>
+              <div class="container" style="display: inline-block; justify-content: center;">
+                <p style="text-align: justify;">Any date/time that doesn't display is unavailable. Only 6o days are available from the current date, if you wish to pick a date far from it, you have to wait for it to show up</p>
+              </div>
+            </div>
+            <a style="background-color: teal; color: #fff; font-family: Trebuchet MS;" type="button" class="btn shadow  mt-5" href="{% url 'booking' %}">Online Booking</a>
+            
+        </div>
+    </div>
+  <!--Hero 1 End-->
+  
+    <div class="bg bg-dark text-dark pt-1 pb-5">
+      <div class="text-center" style="color: beige; box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.15); margin-top: 100px; padding: 10px 0 20px 0">
+        <h4 style="margin-top: -70px; margin-bottom: 25px; font-family: Trebuchet MS;">Contacts</h4>
+        <div style="display: grid; justify-content: center; margin-bottom: 30px">
+          <div style="display: flex; justify-content: center;">
+            <p>
+              <i style="color: #f54;" class="fas fa-phone"></i>
+              <a style="text-decoration: none; color: #fff;" class="btn-floating m-1" href="tel: +18329972499" role="button"></a>
+              1 8329972499
+            </p>
+
+            <p style="margin-left: 30px;">
+              <i style="color: #f54;" class="fab fa-instagram"></i>
+              <a style="text-decoration: none; color: #fff;" class="btn-floating m-1" target="_blank" href="https://www.instagram.com/goodnesshairbraids/" role="button"></a>
+              @goodnesshairbraids
+            </p>
+          </div>
+
+          <div style="display: flex; justify-content: center;">
+            <p><i style="font-size: small; color: #f54;" class="fas fa-envelope mt-4 fa-2x"></i><a style="text-decoration: none; color: #fff;" href="https://mail.support@goodnesshairbraids.com"></a> support@goodnesshairbraids.com</p>
+          </div> 
+        </div>
+        <div>
+            <p>© {% now "Y" %} Copyright:</p>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

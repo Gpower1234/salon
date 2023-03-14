@@ -1,0 +1,61 @@
+<title>Edit Appointment</title>
+{% extends 'layout.html' %}
+{% load static %}
+{% block body %}
+
+
+
+{% if user.is_authenticated %}
+
+    {% if updated_count == 0 %}
+    <!--if 24hrs before nobat-->
+        {% if delta24 == True %}
+        <h1 class="text-center  mt-3">Edit Appointment</h1>
+        
+        <div class="shadow p-4 mb-5 bg-body bg-body rounded text-black  m-5 ">
+            <form method="post" action="{% url 'userUpdate' id %}" class="me-2 ms-2" required>
+                {% csrf_token %}
+                        <!--input day-->
+                        <div class="mt-3">
+                            <h3 style="color: #555;">Select Day:</h3>
+                            <input type="checkbox" checked hidden name="update_count" value="{{ updated_count }}">
+                            <select style="margin-top: 20px" class="form-select fs-3" name="day">
+                                {% for validateWeekday in validateWeekdays %}
+                                <option style="color: #777;" value="{{validateWeekday}}">{{validateWeekday}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <br>
+                        <button style="background-color: teal; color: #fff" type="submit" class="btn btn-primary text-white">Continue</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!--else if its 24hrs before editing-->
+        {% else %}
+
+        <div class="shadow p-4 mb-5 bg-body bg-body rounded text-black m-5 text-center fPersian">
+            <h1 class="text-danger">Editing Appointments Its Only Available 24hrs Before Appointment!</h1>
+            <a style="background-color: teal; color: #fff; font-family: Trebuchet MS;" href="{% url 'userPanel' %}" class="btn btn-primary mt-5">Return To User Panel</a>
+        </div>
+
+        {% endif %}
+
+    {% else %}
+    <div class="shadow p-4 mb-5 bg-body bg-body rounded text-black m-5 text-center fPersian">
+        <h1 class="text-danger">Maximum number of update allowed reached for this particular appointment.</h1>
+        <a style="background-color: teal; color: #fff; font-family: Trebuchet MS;" href="{% url 'userPanel' %}" class="btn btn-primary mt-5">Return To User Panel</a>
+    </div> 
+    {% endif %}   
+{% else %}
+
+<div class="shadow p-4 mb-5 bg-body bg-body rounded text-black  m-5 ">
+    <h1 class="p-2  me-3">You Are Not Signed in!</h1>
+    <a href="{% url 'register' %}" class="btn btn-primary shadow text-center">Sign in</a>
+</div>
+
+{% endif %}
+
+
+{% endblock %}

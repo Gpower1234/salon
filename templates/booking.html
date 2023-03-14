@@ -1,0 +1,374 @@
+<title>Online Booking</title>
+{% extends 'layout.html' %}
+{% load static %}
+{% block body %}
+
+<head>
+    <style>
+        h5 {
+            color: #222;
+            
+        }
+        p {
+            color: #444;
+        }
+    </style>
+    <script>
+        
+        function toggleBrand1() {
+            var subList = document.getElementById("sub-brand1");
+            if (subList.style.display === "none") {
+                subList.style.display = "block"
+                category.style.display = "none"
+                type.style.display = "flex"
+            } else {
+                subList.style.display = "none"
+                category.style.display = "flex"
+                type.style.display = "none"
+            }
+
+            var subList = document.getElementById("brand2");
+            if (brand2.style.display === "block") {
+                subList.style.display = "none"
+            } else {
+                subList.style.display = "block"
+            }
+
+            var subList = document.getElementById("brand3");
+            if (brand3.style.display === "block") {
+                subList.style.display = "none"
+            } else {
+                subList.style.display = "block"
+            }
+
+            var subList = document.getElementById("brand4");
+            if (brand4.style.display === "block") {
+                subList.style.display = "none"
+            } else {
+                subList.style.display = "block"
+            }
+
+            var subList = document.getElementById("brand5");
+            if (brand5.style.display === "block") {
+                subList.style.display = "none"
+            } else {
+                subList.style.display = "block"
+            }
+        }
+
+        function toggleBrand2() {
+            var subList = document.getElementById("sub-brand2");
+            if (subList.style.display === "none") {
+                subList.style.display = "block"
+                category.style.display = "none"
+                type.style.display = "flex"
+            } else {
+                subList.style.display = "none"
+                category.style.display = "flex"
+                type.style.display = "none"
+            }
+
+            var subList = document.getElementById("brand1");
+            if (brand1.style.display === "block") {
+                subList.style.display = "none"
+            } else {
+                subList.style.display = "block"
+            }
+
+            var subList = document.getElementById("brand3");
+            if (brand3.style.display === "block") {
+                subList.style.display = "none"
+            } else {
+                subList.style.display = "block"
+            }
+
+            var subList = document.getElementById("brand4");
+            if (brand4.style.display === "block") {
+                subList.style.display = "none"
+            } else {
+                subList.style.display = "block"
+            }
+
+            var subList = document.getElementById("brand5");
+            if (brand5.style.display === "block") {
+                subList.style.display = "none"
+            } else {
+                subList.style.display = "block"
+            }
+        }
+
+        function toggleBrand3() {
+            var subList = document.getElementById("sub-brand3");
+            if (subList.style.display === "none") {
+                subList.style.display = "block"
+                category.style.display = "none"
+                type.style.display = "flex"
+            } else {
+                subList.style.display = "none"
+                category.style.display = "flex"
+                type.style.display = "none"
+            }
+
+            var subList = document.getElementById("brand1");
+            if (brand1.style.display === "block") {
+                subList.style.display = "none"
+            } else {
+                subList.style.display = "block"
+            }
+
+            var subList = document.getElementById("brand2");
+            if (brand2.style.display === "block") {
+                subList.style.display = "none"
+            } else {
+                subList.style.display = "block"
+            }
+
+            var subList = document.getElementById("brand4");
+            if (brand4.style.display === "block") {
+                subList.style.display = "none"
+            } else {
+                subList.style.display = "block"
+            }
+
+            var subList = document.getElementById("brand5");
+            if (brand5.style.display === "block") {
+                subList.style.display = "none"
+            } else {
+                subList.style.display = "block"
+            }
+        }
+
+        function toggleBrand4() {
+            var subList = document.getElementById("sub-brand4");
+            if (subList.style.display === "none") {
+                subList.style.display = "block"
+                category.style.display = "none"
+                type.style.display = "flex"
+            } else {
+                subList.style.display = "none"
+                category.style.display = "flex"
+                type.style.display = "none"
+            }
+
+            var subList = document.getElementById("brand1");
+            if (brand1.style.display === "block") {
+                subList.style.display = "none"
+            } else {
+                subList.style.display = "block"
+            }
+
+            var subList = document.getElementById("brand2");
+            if (brand2.style.display === "block") {
+                subList.style.display = "none"
+            } else {
+                subList.style.display = "block"
+            }
+
+            var subList = document.getElementById("brand3");
+            if (brand3.style.display === "block") {
+                subList.style.display = "none"
+            } else {
+                subList.style.display = "block"
+            }
+
+            var subList = document.getElementById("brand5");
+            if (brand5.style.display === "block") {
+                subList.style.display = "none"
+            } else {
+                subList.style.display = "block"
+            }
+        }
+
+        function toggleBrand5() {
+            var subList = document.getElementById("sub-brand5");
+            if (subList.style.display === "none") {
+                subList.style.display = "block"
+                category.style.display = "none"
+                type.style.display = "flex"
+            } else {
+                subList.style.display = "none"
+                category.style.display = "flex"
+                type.style.display = "none"
+            }
+
+            var subList = document.getElementById("brand1");
+            if (brand1.style.display === "block") {
+                subList.style.display = "none"
+            } else {
+                subList.style.display = "block"
+            }
+
+            var subList = document.getElementById("brand2");
+            if (brand2.style.display === "block") {
+                subList.style.display = "none"
+            } else {
+                subList.style.display = "block"
+            }
+
+            var subList = document.getElementById("brand3");
+            if (brand3.style.display === "block") {
+                subList.style.display = "none"
+            } else {
+                subList.style.display = "block"
+            }
+
+            var subList = document.getElementById("brand4");
+            if (brand4.style.display === "block") {
+                subList.style.display = "none"
+            } else {
+                subList.style.display = "block"
+            }
+        }
+        
+
+    </script>
+</head>
+
+<h1 style="color: #555" class="text-center  mt-3">Online Booking</h1>
+
+<div class="shadow p-4 mb-5 bg-body bg-body rounded text-black  m-5 ">
+    
+
+        <!--input service-->
+        <div class="mt-3">
+            <h3 class="" id="category" style="color: #555;">Select Category:</h3>
+            <h3 class="" id="type" style="display: none; color: #555;">Select Type:</h3>
+
+            <div style="margin-top: 20px">
+                <div id="brand1" style="display: block;">
+                    
+                    <div class="d-grid">
+                        <button onclick="toggleBrand1()" type="button" class="btn btn-outline-dark" style="font-family: Trebuchet MS; font-weight: bold;">
+                            Braid
+                        </button>
+                    </div>
+                    
+                    <div id="sub-brand1" style="display: none;" class="row">
+                        <div class="col-lg-12 mb-3 mb-sm-0">
+                            {% for instance in braid %}
+                            <form method="post" action="{% url 'booking' %}" class="me-2 ms-2" required>
+                                {% csrf_token %} 
+                                <div class="card" style="margin-top: 4px">
+                                    <div class="card-body">
+                                        <input style="opacity: 0.7;" checked hidden type="radio" value="{{ instance.name }}" name="service">
+                                        <h6 style="font-style: oblique;" class="card-title">{{ instance.name }}</h6>
+                                        <p class="card-text">{{ instance.formatted_work_time }}</p>
+                                        <p class="card-text">@  ${{ instance.price }}</p>
+                                        <button style="background-color: teal; color: #fff" class="btn" value="{{ instance.price }}" name="price" type="submit">Book</button>
+                                    </div>
+                                </div>
+                            </form>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div id="brand2" style="display: block; margin-top: 20px">
+                    <div class="d-grid">
+                        <button onclick="toggleBrand2()" type="button" class="btn btn-outline-dark" style="font-family: Trebuchet MS; font-weight: bold;">
+                            Twist
+                        </button>
+                    </div>
+                    <div id="sub-brand2" style="display: none;">
+                        <div class="col-lg-12 mb-3 mb-sm-0">
+                            {% for instance in twist %}
+                            <form method="post" action="{% url 'booking' %}" class="me-2 ms-2" required>
+                                {% csrf_token %} 
+                                <div class="card" style="margin-top: 4px">
+                                    <div class="card-body">
+                                        <input style="opacity: 0.7;" checked hidden type="radio" value="{{ instance.name }}" name="service">             
+                                        <h6 style="font-style: oblique;" class="card-title">{{ instance.name }}</h6>
+                                        <p class="card-text">{{ instance.work_time }} hours</p>
+                                        <p class="card-text">@  ${{ instance.price }}</p>
+                                        <button style="background-color: teal; color: #fff" class="btn" value="{{ instance.price }}" name="price" type="submit">Book</button>
+                                    </div>
+                                </div>
+                            </form>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div id="brand3" style="display: block; margin-top: 20px">
+                    <div class="d-grid">
+                        <button onclick="toggleBrand3()" type="button" class="btn btn-outline-dark" style="font-family: Trebuchet MS; font-weight: bold;">
+                            Crochet
+                        </button>
+                    </div>
+                    <div id="sub-brand3" style="display: none;">
+                        <div class="col-lg-12 mb-3 mb-sm-0">
+                            {% for instance in crochet %}
+                            <form method="post" action="{% url 'booking' %}" class="me-2 ms-2" required>
+                                {% csrf_token %} 
+                                <div class="card" style="margin-top: 4px">
+                                    <div class="card-body">
+                                        <input style="opacity: 0.7;" checked hidden type="radio" value="{{ instance.name }}" name="service">
+                                        <h6 style="font-style: oblique;" class="card-title">{{ instance.name }}</h6>
+                                        <p class="card-text">{{ instance.work_time }} hours</p>
+                                        <p class="card-text">@  ${{ instance.price }}</p>
+                                        <button style="background-color: teal; color: #fff" class="btn"  value="{{ instance.price }}" name="price" type="submit">Book</button>
+                                    </div>
+                                </div>
+                            </form>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div id="brand4" style="display: block; margin-top: 20px">
+                    <div class="d-grid">
+                        <button onclick="toggleBrand4()" type="button" class="btn btn-outline-dark" style="font-family: Trebuchet MS; font-weight: bold;">
+                            Other Services
+                        </button>
+                    </div>
+                    <div id="sub-brand4" style="display: none;">
+                        <div class="col-lg-12 mb-3 mb-sm-0">
+                            {% for instance in other_service %}
+                            <form method="post" action="{% url 'booking' %}" class="me-2 ms-2" required>
+                                {% csrf_token %} 
+                                <div class="card" style="margin-top: 4px">
+                                    <div class="card-body">                                   
+                                        <input style="opacity: 0.7;" checked hidden type="radio" value="{{ instance.name }}" name="service">
+                                        <h6 style="font-style: oblique;" class="card-title">{{ instance.name }}</h6>
+                                        <p class="card-text">{{ instance.work_time }} hours</p>
+                                        <p class="card-text">@  ${{ instance.price }}</p>
+                                        <button style="background-color: teal; color: #fff" class="btn" value="{{ instance.price }}" name="price" type="submit">Book</button>
+                                    </div>
+                                </div>
+                            </form>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div id="brand5" style="display: block; margin-top: 20px">
+                    <div class="d-grid">
+                        <button onclick="toggleBrand5()" type="button" class="btn btn-outline-dark" style="font-family: Trebuchet MS; font-weight: bold;">
+                            Natural Hair
+                        </button>
+                    </div>
+                    <div id="sub-brand5" style="display: none;">
+                        <div class="col-lg-12 mb-3 mb-sm-0">
+                            {% for instance in natural_hair %}
+                            <form method="post" action="{% url 'booking' %}" class="me-2 ms-2" required>
+                                {% csrf_token %} 
+                                <div class="card" style="margin-top: 4px">
+                                    <div class="card-body">                                    
+                                        <input style="opacity: 0.7;" checked hidden type="radio" value="{{ instance.name }}" name="service">
+                                        <h6 style="font-style: oblique;" class="card-title">{{ instance.name }}</h6>
+                                        <p class="card-text">{{ instance.work_time }} hours</p>
+                                        <p class="card-text">@  ${{ instance.price }}</p>
+                                        <button style="background-color: teal; color: #fff" class="btn" value="{{ instance.price }}" name="price" type="submit">Book</button>
+                                    </div>
+                                </div>
+                            </form>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+</div>
+
+{% endblock %}

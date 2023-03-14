@@ -1,0 +1,44 @@
+<title>Online Booking</title>
+{% extends 'layout.html' %}
+{% load static %}
+{% block body %}
+
+
+
+{% if user.is_authenticated %}
+<h1 style="color: #555" class="text-center  mt-3">Online Booking</h1>
+
+
+<p></p>
+<div class="shadow p-4 mb-5 bg-body bg-body rounded text-black  m-5 ">
+    <form method="post" action="{% url 'bookingDate' %}" class="me-2 ms-2" required>
+        {% csrf_token %}
+
+        <!--input service-->
+        <div class="mt-3">
+            <!--input day-->
+            <div class="mt-3">
+                <h3 style="color: #555;">Select Day:</h3>
+                <select style="margin-top: 20px" class="form-select fs-3" name="day">
+                    {% for validateWeekday in validateWeekdays %}
+                    <option style="color: #777;" value="{{validateWeekday}}">{{validateWeekday}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <br/>
+            <button style="background-color: teal;" type="submit" class="btn text-white">Continue</button>
+        </div>
+    </form>
+
+{% else %}
+
+<div class="shadow p-4 mb-5 bg-body bg-body rounded text-black  m-5 ">
+    <h1 class="p-2  me-3">You Are Not Signed in!</h1>
+    <a href="{% url 'login' %}"  style="background-color: teal; color: #fff; font-family: Trebuchet MS;" class="btn shadow text-center">Sign in</a>
+</div>
+
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,119 @@
+<title>User Panel</title>
+{% extends 'layout.html' %}
+{% load static %}
+{% block body %}
+
+
+
+
+{% if user.is_authenticated %}
+<h3 style="font-family: Trebuchet MS;" class=" ms-5 mt-5 ">User Panel</h3>
+
+<div class="shadow p-4 mb-5 bg-body bg-body rounded text-black  m-5 ">
+    <h4 class="">User Info:</h4>
+    <ul class="list-group fs-4 mt-3">
+            <li style="color: #444; font-size: 12pt" class="list-group mt-2">{{ user.first_name }} {{ user.last_name }}</li>
+            <li style="color: #444; font-size: 12pt" class="list-group mt-2">{{ user.username }}</li>
+            <li style="color: #444; font-size: 12pt" class="list-group mt-2">{{ user.email}}</li>
+    </ul>
+</div>
+
+<!--Appointment Loop-->
+    {% if appointments.count > 0 %}
+        <h4 style="display: flex; justify-content: center" class="ms-5">Active Appointments:</h4>
+        {% for appointment in appointments %}
+            {% if appointment.day >= now %}
+            <section class="" style="background-color: #eee;">
+                <div class="container py-5">
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col col-md-9 col-lg-7 col-xl-5">
+                            <div class="card" style="border-radius: 15px;">
+                                
+                                <div class="card-body p-4 text-black">
+                                    <div>
+                                        <h4 class="mb-4">{{ appointment.service }}</h4>
+                                        <div class="d-flex align-items-center justify-content-between mb-3">
+                                            <p style="font-weight: 600;" class="small mb-0">{{ appointment.time }}</p>
+                                            <p style="font-weight: 600;" class="small mb-0">{{ appointment.day }}</p>
+                                            <p class="fw-bold mb-0">Price: ${{ appointment.price }}</p>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between mb-3">
+                                            <p style="color: teal; font-weight: 700" class="small mb-0">Paid: ${{ appointment.deposit }}</p>
+                                            <p></p>
+                                            <p class="small mb-0"></p>
+                                        </div>
+                                            
+                                        <div class="d-flex align-items-center justify-content-between mb-3" style="display: flex;">
+                                            <a style="background-color: teal; font-family: Trebuchet MS; font-size: 10px;"  class="btn text-white mt-3 fPersian" href="{% url 'userUpdate' appointment.id %}">Edit Appointment</a>
+                                            {% if appointment.deposit != appointment.price %}
+                                            <p class="small mb-0"><a href="{% url 'paymentUpdate' appointment.id %}"><button style="font-weight:900; font-size: 10px; margin-top: 14px" class="btn btn-outline-dark">Pay Balance</button></a></p>
+                                            {% endif %}
+                                        </div>
+                                        <div>       
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div> 
+            </section>
+            {% endif %}
+        {% endfor %}
+        
+    {% endif %}
+
+    {% if appointments.count > 0 %}
+        <div class="mt-5 " style="margin-bottom: 200px;">
+            
+            <div class="shadow p-4 mb-5 bg-body bg-body rounded text-black  m-5 ">
+                <h4 class="text-center mt-5 mb-5">Appointment History</h4>
+                
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover mx-auto">
+                        <thead>
+                        <tr>
+                            <th class="text-center" scope="col">Service</th>
+                            <th class="text-center" scope="col">Order_on</th>
+                            <th class="text-center" scope="col">Appointment_day</th>
+                            <th class="text-center" scope="col">Appointment_time</th> 
+                            <th class="text-center" scope="col">Price</th>
+                            <th class="text-center" scope="col">Deposit</th>
+                        </tr>
+                        </thead>
+                        <tbody id="myTable">
+                        {% for appointment in appointments %} 
+                        <tr>
+                            <td class="text-center">{{ appointment.service }}</td>
+                            <td class="text-center">{{ appointment.time_ordered.date }}</td>
+                            <td class="text-center">{{ appointment.day }}</td>
+                            <td class="text-center">{{ appointment.time}}</td>
+                            <td class="text-center">${{ appointment.price }}</td>
+                            <td class="text-center">${{ appointment.deposit }}</td>
+                            {% if appointment.deposit == appointment.price %}
+                            <td></td>
+                            {% else %}
+                            <td class="text-center"><a href="{% url 'paymentUpdate' appointment.id %}"><button style="font-weight:700" class="btn btn-outline-dark">Pay</button></a></td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+            
+            </div>
+        </div>
+        
+    {% endif %}
+
+{% else %}
+
+<div class="shadow p-4 mb-5 bg-body bg-body rounded text-black  m-5">
+    <h1 class="p-2  ms-3">First Sign in!</h1>
+    <a style="background-color: teal; color: #fff; font-family: Trebuchet MS;" href="{% url 'login' %}" class="btn btn-primary text-white">Sign in</a>
+</div>
+
+{% endif %}
+
+
+{% endblock %}
