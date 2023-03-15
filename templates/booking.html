@@ -279,7 +279,7 @@
                                     <div class="card-body">
                                         <input style="opacity: 0.7;" checked hidden type="radio" value="{{ instance.name }}" name="service">             
                                         <h6 style="font-style: oblique;" class="card-title">{{ instance.name }}</h6>
-                                        <p class="card-text">{{ instance.work_time }} hours</p>
+                                        <p class="card-text">{{ instance.formatted_work_time }}</p>
                                         <p class="card-text">@  ${{ instance.price }}</p>
                                         <button style="background-color: teal; color: #fff" class="btn" value="{{ instance.price }}" name="price" type="submit">Book</button>
                                     </div>
@@ -304,7 +304,7 @@
                                     <div class="card-body">
                                         <input style="opacity: 0.7;" checked hidden type="radio" value="{{ instance.name }}" name="service">
                                         <h6 style="font-style: oblique;" class="card-title">{{ instance.name }}</h6>
-                                        <p class="card-text">{{ instance.work_time }} hours</p>
+                                        <p class="card-text">{{ instance.formatted_work_time }}</p>
                                         <p class="card-text">@  ${{ instance.price }}</p>
                                         <button style="background-color: teal; color: #fff" class="btn"  value="{{ instance.price }}" name="price" type="submit">Book</button>
                                     </div>
@@ -330,7 +330,7 @@
                                     <div class="card-body">                                   
                                         <input style="opacity: 0.7;" checked hidden type="radio" value="{{ instance.name }}" name="service">
                                         <h6 style="font-style: oblique;" class="card-title">{{ instance.name }}</h6>
-                                        <p class="card-text">{{ instance.work_time }} hours</p>
+                                        <p class="card-text">{{ instance.formatted_work_time }}</p>
                                         <p class="card-text">@  ${{ instance.price }}</p>
                                         <button style="background-color: teal; color: #fff" class="btn" value="{{ instance.price }}" name="price" type="submit">Book</button>
                                     </div>
@@ -356,7 +356,7 @@
                                     <div class="card-body">                                    
                                         <input style="opacity: 0.7;" checked hidden type="radio" value="{{ instance.name }}" name="service">
                                         <h6 style="font-style: oblique;" class="card-title">{{ instance.name }}</h6>
-                                        <p class="card-text">{{ instance.work_time }} hours</p>
+                                        <p class="card-text">{{ instance.formatted_work_time }}</p>
                                         <p class="card-text">@  ${{ instance.price }}</p>
                                         <button style="background-color: teal; color: #fff" class="btn" value="{{ instance.price }}" name="price" type="submit">Book</button>
                                     </div>

@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-22*6(2zj-#+#!sczhzm%-@njgktf1*9s7-^+hcj26#sd@%su(5'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -99,6 +99,7 @@ DATABASES = {
 }
 
 
+
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -139,6 +140,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static_folder')
 ]
 
+
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 
@@ -152,7 +154,7 @@ CRISPY_TEMPLATE_PACK="bootstrap5"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STRIPE_SECRET_KEY = config('SECRET_KEY')
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 STRIPE_PUBLISHABLE_KEY = config('PUBLISHABLE_KEY')
 
 
@@ -166,10 +168,3 @@ EMAIL_USE_TLS = True
 
 PASSWORD_RESET_TIMEOUT = 86400
 
-'''
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = '/email'
-'''
-'''
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-'''
