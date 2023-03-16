@@ -23,7 +23,7 @@
                         <tbody id="myTable">
                             {% for date in lockdate %}
                             <tr>
-                                <td style="font-style: oblique;" class="text-center">{{ date.date }}</td>
+                                <td class="text-center">{{ date.date }}</td>
                                 <td>
                                     <form method="post">
                                         {% csrf_token %}
@@ -54,7 +54,7 @@
                         <tbody id="myTable">
                             {% for date in validateWeekdays %}
                             <tr>
-                                <td style="font-style: oblique;" class="text-center">{{ date }}</td>
+                                <td class="text-center">{{ date }}</td>
                                 <td>
                                     <form method="post">
                                         {% csrf_token %}
