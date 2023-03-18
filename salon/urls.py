@@ -23,7 +23,7 @@ from django.contrib.auth import views as auth_views
 from service.views import SignUpView, activate
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('GHB/', admin.site.urls),
     path('', views.index, name='index'),
     path('booking', views.booking, name='booking'),
     path('booking-date', views.bookingDate, name='bookingDate'),
