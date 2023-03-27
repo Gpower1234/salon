@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment</title>
+    <script src="https://js.stripe.com/v3/" class="stripe-button"></script>
 </head>
 <body>
     
@@ -35,10 +36,7 @@
         
         <form action="{% url 'payment' %}" method="post" class="stripe-form">
             {% csrf_token %}
-            {% comment %}
-            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"></script> 
-            {% endcomment %}
-            <script src="https://js.stripe.com/v3/" class="stripe-button"
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" 
                 data-key="{{ Key }}"
                 data-description="Payment Gateway"
                 data-name="Stripe"
