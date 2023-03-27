@@ -1,6 +1,16 @@
+<!DOCTYPE html>
 {% extends 'layout.html' %}
-
-<title>Payment</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+</head>
+<body>
+    
+</body>
+</html>
 
 {% block body %}
 
@@ -25,7 +35,10 @@
         
         <form action="{% url 'payment' %}" method="post" class="stripe-form">
             {% csrf_token %}
-            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" 
+            {% comment %}
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"></script> 
+            {% endcomment %}
+            <script src="https://js.stripe.com/v3/" class="stripe-button"
                 data-key="{{ Key }}"
                 data-description="Payment Gateway"
                 data-name="Stripe"
@@ -39,4 +52,4 @@
 </section>
 
 {% endblock %}
-    
+
