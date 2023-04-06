@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from .models import *
@@ -117,8 +117,6 @@ def bookingTime(request):
     if request.method == 'POST':
         time = request.POST.get("time")
         request.session['time'] = time
-        deposit = request.POST.get('amount')
-        request.session['amount'] = deposit
         date = dayToWeekday(day)
 
         if service != None:
@@ -126,10 +124,7 @@ def bookingTime(request):
                 if date == 'Monday' or date == 'Tuesday' or date == 'Wednesday' or date == 'Thursday' or date == 'Friday' or date == 'Saturday' or date == 'Sunday':
                     if Appointment.objects.filter(day=day).count() < 3:
                         if Appointment.objects.filter(day=day, time=time).count() < 1:
-                            if deposit:
-                                return redirect('payment')
-                            else:
-                                messages.error(request, "Enter amount to deposit!")
+                            return redirect('payment')
                         else:
                             messages.error(request, "The Selected Time Has Been Reserved Before!")
                     else:
@@ -155,33 +150,76 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 def payment(request):
     user = request.user
     Key = settings.STRIPE_PUBLISHABLE_KEY
+    s_key = settings.STRIPE_SECRET_KEY
     service = request.session.get('service')
     day = request.session.get('day')
     price = request.session.get('price')
     time = request.session.get('time')
-    deposit = request.session.get('amount')
-    deposit_int = int(deposit) * 100
-    print(deposit_int)
+    #deposit = request.session.get('amount')
+    #deposit_int = int(deposit) * 100
 
     if request.method == 'POST':
+        amount = int(request.POST['amount'])
+        
+        try:
     
+            customer = stripe.Customer.create(
+                email = request.POST.get('email'),
+                name = request.POST.get('full_name'),
+                description = "Hair Booking",
+                source=request.POST['stripeToken'],
+            )
+
+        except stripe.error.CardError as e:
+            messages.error(request, 'There was an error charging your card, ensure you have sufficient funds')
+            return redirect('payment')
+
+        except stripe.error.RateLimitError as e:
+            messages.error(request, 'Rate Error')
+            return redirect('payment')
+
+        except stripe.error.InvalidRequestError as e:
+            messages.error(request, 'Invalid requestor!')
+            return redirect('payment')
+
+        except stripe.error.AuthenticationError as e:
+            messages.error(request, 'Invalid API auth')
+            return redirect('payment')
+
+        except stripe.error.StripeError as e:
+            messages.error(request, 'Stripe Error')
+            return redirect('payment')
+
+        except Exception as e:
+            messages.error(request, 'Error paying with your card at the moment')
+            return redirect('payment')
+
         charge = stripe.Charge.create(
-            amount = deposit_int,
-            currency='usd',
-            description='payment successful',
-            source=request.POST['stripeToken']
+            customer=customer,
+            amount = amount * 100,
+            currency = 'usd',
+            description='Hair Booking',
         )
 
         AppointmentForm = Appointment.objects.get_or_create(
-            user = user,
-            service = service,
-            day = day,
-            time = time,
-            price = price,
-            deposit = deposit,
+                user = user,
+                service = service,
+                day = day,
+                time = time,
+                price = price,
+                deposit = amount,
+            )
 
-        )
+        transRetrive = stripe.Charge.retrieve(
+            charge["id"],
+            api_key = settings.STRIPE_SECRET_KEY
+            )
+            
+        charge.save() # Uses the same API Key.
+
+
         messages.success(request, f"{user.username} your booking was succesful.")
+
         return redirect('userPanel')
     return render(request, 'payment.html', {
         'Key':Key,
@@ -189,8 +227,6 @@ def payment(request):
         'day':day,
         'time':time,
         'price':price,
-        'deposit':deposit,
-        'deposit_int':deposit_int,
     })
 
 @login_required
@@ -319,27 +355,64 @@ def paymentUpdate(request, id):
     prev_deposit = appointment.deposit
     price = appointment.price
     balance = price - prev_deposit
-    if prev_deposit < price:
-        deposit = price - prev_deposit
-        current_deposit = deposit * 100
-    
-    if request.POST:
+
+    if request.method == 'POST':
         deposit_update = balance + prev_deposit
+        
+        try:
+    
+            customer = stripe.Customer.create(
+                email = request.POST.get('email'),
+                name = request.POST.get('full_name'),
+                description = "Hair Booking",
+                source=request.POST['stripeToken'],
+            )
+
+        except stripe.error.CardError as e:
+            messages.error(request, 'There was an error charging your card, ensure you have sufficient funds')
+            return redirect('payment')
+
+        except stripe.error.RateLimitError as e:
+            messages.error(request, 'Rate Error')
+            return redirect('payment')
+
+        except stripe.error.InvalidRequestError as e:
+            messages.error(request, 'Invalid requestor!')
+            return redirect('payment')
+
+        except stripe.error.AuthenticationError as e:
+            messages.error(request, 'Invalid API auth')
+            return redirect('payment')
+
+        except stripe.error.StripeError as e:
+            messages.error(request, 'Stripe Error')
+            return redirect('payment')
+
+        except Exception as e:
+            messages.error(request, 'Error paying with your card at the moment')
+            return redirect('payment')
+
         charge = stripe.Charge.create(
-                amount = current_deposit,
+                customer=customer,
+                amount = balance * 100,
                 currency='usd',
-                description='payment successful',
-                source=request.POST['stripeToken']
+                description='Hair Booking',
             )
 
         AppointmentForm = Appointment.objects.filter(pk=id).update(
                         user = user,
                         deposit = deposit_update,
                     )
+        transRetrive = stripe.Charge.retrieve(
+            charge["id"],
+            api_key = settings.STRIPE_SECRET_KEY
+            )
+            
+        charge.save() # Uses the same API Key.
         messages.success(request, f"Your balance payment of ${balance} was succesfull!")
         return redirect('userPanel')
     return render(request, 'paymentUpdate.html', {
-        'current_deposit':current_deposit,
+        'current_deposit':balance,
          'Key':Key,
          'appointment':appointment,
          'balance': balance,

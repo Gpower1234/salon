@@ -1,39 +1,74 @@
 <!DOCTYPE html>
 {% extends 'layout.html' %}
+
+{% load static %}
+
+{% block body %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment</title>
-    <script src="https://js.stripe.com/v3/" class="stripe-button"></script>
-</head>
-<body>
-    
-</body>
-</html>
 
-{% block body %}
+    <style>
+       .form-popup {
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+       }
+
+       .form-popup-content {
+        background-color: #fefefe;
+        margin: 20% auto;
+        padding: 10%;
+        border: 1px solid #888;
+        width: 80%;
+        animation-name: zoom-in;
+        animation-duration: 0.3s;
+       }
+
+       @media only screen and (max-width: 767px){
+        
+       }
+    </style>
+    
+
+    <script>
+        function showForm() {
+            var paymentForm = document.getElementById('stripe-form');
+            paymentForm.style.display = 'block';
+        };
+    </script>
+
+</head>
+
 
 <section style="margin-top: 50px; margin-bottom: 250px">
     <center>
         <div class="mt-5 ">
-            
+        <div style="max-width: 500px; margin: 0 auto">  
             <div class="shadow p-4 mb-3 bg-body bg-body rounded text-black  m-5">
-                <h4 style="color: #007bff;">Review</h4>
+                <h4 style="color: teal;">Review</h4>
                 <div class="list-group fs-4 border p-3 mb-3">
                     <p style="font-size: medium; color:#444" class="list-group mt-2">Service: <b style="color: #333; font-size: medium;">{{ service }}</b style="color: #333;"></p>
                     <p style="font-size: medium; color:#444" class="list-group mt-2">Appointment Day: <b style="color: #333; font-size: medium;">{{ day }}</b></p>
                     <p style="font-size: medium; color:#444" class="list-group mt-2">Time: <b style="color: #333; font-size: medium;">{{ time }}</b></p>
                     <p style="font-size: medium; color:#444" class="list-group mt-2">Price: <b style="color: #333; font-size: medium;">${{ price }}</b></p>
-                    <p style="font-size: medium; color:#444" class="list-group mt-2">To Deposit <b style="color: #333; font-size: medium;">${{ deposit }}</b></p>
                 </div>
-                
+                <button onclick="showForm()" id="show-form-btn" style="background-color: teal; color: #fff; font-weight: bold" class="btn btn-block">Pay With Card</button>
             </div>
-
+        </div>  
         </div>
 
-        
+        {% comment %}
         <form action="{% url 'payment' %}" method="post" class="stripe-form">
             {% csrf_token %}
             <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" 
@@ -46,8 +81,123 @@
                 data-locale="auto">
             </script>
         </form>
-    </center>
-</section>
+        {% endcomment %}
+
+    <div style="justify-content:center" id="stripe-form" class="form-popup">
+        <div class="form-popup-content">
+            <div>
+                <h6 style="margin-bottom: 20px; color: #555">Pay with Credit or Debit card</h5>
+                <img style="height: 100px; width: 100px;" src="{% static 'media/image2.jpeg' %}">
+                <br>
+                <br>
+                <form method="post" id="payment-form" style="max-width: 300px; margin: 0 auto;">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input style="text-align: center; color: #555" class="form-control" type="number" min="20" name="amount" id="amount"  placeholder="Amount to deposit" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input style="text-align: center; color: #555" class="form-control" type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input style="text-align: center; color: #555" class="form-control" type="text" name="full_name" placeholder="Full name" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <div id="card-element">
+                            <!-- A Stripe Element will be inserted here. -->
+                        </div>
+                        <!-- Used to display form errors. -->
+                        <div style="color: #555" class="form-group" id="card-errors" role="alert"></div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <button style="background-color: teal; color: #fff;" class="btn btn-block" type="submit">Pay</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+   
+
+        <script src="https://js.stripe.com/v3/"></script>
+        
+        <script>
+            // Create a Stripe client.
+            var stripe = Stripe('{{ Key }}');
+    
+            // Create an instance of Elements.
+            var elements = stripe.elements();
+    
+            // Custom styling can be passed to options when creating an Element.
+            // (Note that this demo uses a wider set of styles than the guide below.)
+            var style = {
+                base: {
+                color: '#32325d',
+                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                fontSmoothing: 'antialiased',
+                fontSize: '16px',
+                '::placeholder': {
+                    color: '#aab7c4'
+                }
+                },
+                invalid: {
+                color: '#fa755a',
+                iconColor: '#fa755a'
+                }
+            };
+    
+            // Create an instance of the card Element.
+            var card = elements.create('card', {style: style});
+    
+            // Add an instance of the card Element into the `card-element` <div>.
+            card.mount('#card-element');
+    
+            // Handle real-time validation errors from the card Element.
+            card.addEventListener('change', function(event) {
+                var displayError = document.getElementById('card-errors');
+                if (event.error) {
+                displayError.textContent = event.error.message;
+                } else {
+                displayError.textContent = '';
+                }
+            });
+    
+            // Handle form submission.
+            var form = document.getElementById('payment-form');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+    
+                stripe.createToken(card).then(function(result) {
+                if (result.error) {
+                    // Inform the user if there was an error.
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                } else {
+                    // Send the token to your server.
+                    stripeTokenHandler(result.token);
+                }
+                });
+            });
+    
+            // Submit the form with the token ID.
+            function stripeTokenHandler(token) {
+                // Insert the token ID into the form so it gets submitted to the server
+                var form = document.getElementById('payment-form');
+                var hiddenInput = document.createElement('input');
+                hiddenInput.setAttribute('type', 'hidden');
+                hiddenInput.setAttribute('name', 'stripeToken');
+                hiddenInput.setAttribute('value', token.id);
+                form.appendChild(hiddenInput);
+    
+                // Submit the form
+                form.submit();
+            }
+        </script>       
+</body>
 
 {% endblock %}
+</html>
 

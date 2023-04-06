@@ -116,10 +116,17 @@
         <!--Messages Start-->
         {% if messages %}
         {% for message in messages %}
-            <div class="alert alert-success  alert-dismissible fade show text-center " role="alert">
-                <h3 class="display-3">{{ message }}</h3>
+        {% if message.success %}
+            <div class="alert alert-success  alert-dismissible fade show text-center" role="alert">
+                {{ message }}
                 <button type="button" class="btn-close fs-1 position-absolute top-50 start-0 translate-middle-y" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
+        {% else %}
+        <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+            {{ message }}
+            <button style="height: 3px; width: 3px" type="button" class="btn-close fs-1 position-absolute top-50 start-0 translate-middle-y" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
         {% endfor %}
         {% endif %}
         <!--Messages End-->

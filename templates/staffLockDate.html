@@ -10,64 +10,68 @@
 {% block body %}
 
 {% if user.is_authenticated and user.is_staff %}
-<div class="shadow p-4 mb-5 bg-body bg-body rounded text-black  m-5 ">
-    <div class="mt-3">
-        <!--input day-->
+<div  style="display: flex; justify-content:center">
+    <div class="container shadow p-4 mb-5 bg-body bg-body rounded text-black  m-5 " style="max-width: 500px; margin: 0 auto;">
         <div class="mt-3">
-            <h3 style="display: flex; justify-content: center;" class="card-title">Locked date(s)</h3>
-            <center>
+            <!--input day-->
+            <div class="mt-3">
+                <h3 style="display: flex; justify-content: center;" class="card-title">Locked date(s)</h3>
+                <center>
 
-                <div class="table-responsive" style="margin-top: 20px;">
-                    <table class="table table-bordered table-striped table-hover mx-auto">
-                        
-                        <tbody id="myTable">
-                            {% for date in lockdate %}
-                            <tr>
-                                <td class="text-center">{{ date.date }}</td>
-                                <td>
-                                    <form method="post">
-                                        {% csrf_token %}
-                                        <button name="date_id" id="{{date.id}}" value="{{date.id}}" type="submit" style="padding: 0.1rem 0.2rem; font-size: 0.75rem;" class="btn btn-outline-dark">Unlock Date</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </center>
-            
+                    <div class="table-responsive" style="margin-top: 20px;">
+                        <table class="table table-bordered table-striped table-hover mx-auto">
+                            
+                            <tbody id="myTable">
+                                {% for date in lockdate %}
+                                <tr>
+                                    <td class="text-center">{{ date.date }}</td>
+                                    <td>
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <button name="date_id" id="{{date.id}}" value="{{date.id}}" type="submit" style="padding: 0.1rem 0.2rem; font-size: 0.75rem;" class="btn btn-outline-dark">Unlock Date</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </center>
+                
+            </div>
         </div>
     </div>
 </div>
 
-<div class="shadow p-4 mb-5 bg-body bg-body rounded text-black  m-5 ">
-    <div class="mt-3">
-        <!--input day-->
+<div  style="display: flex; justify-content:center">
+    <div class="container shadow p-4 mb-5 bg-body bg-body rounded text-black  m-5 " style="max-width: 500px; margin: 0 auto;">
         <div class="mt-3">
-            <h3 style="display: flex; justify-content: center;" class="card-title">Available date(s)</h3>
-            <center>
+            <!--input day-->
+            <div class="mt-3">
+                <h3 style="display: flex; justify-content: center;" class="card-title">Available date(s)</h3>
+                <center>
 
-                <div class="table-responsive" style="margin-top: 20px;">
-                    <table class="table table-bordered table-striped table-hover mx-auto">
-                        
-                        <tbody id="myTable">
-                            {% for date in validateWeekdays %}
-                            <tr>
-                                <td class="text-center">{{ date }}</td>
-                                <td>
-                                    <form method="post">
-                                        {% csrf_token %}
-                                        <button name="lockdate" value="{{date}}" type="submit" style="padding: 0.1rem 0.2rem; font-size: 0.75rem;" class="btn btn-outline-dark">Lock Date</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </center>
-            
+                    <div class="table-responsive" style="margin-top: 20px;">
+                        <table class="table table-bordered table-striped table-hover mx-auto">
+                            
+                            <tbody id="myTable">
+                                {% for date in validateWeekdays %}
+                                <tr>
+                                    <td class="text-center">{{ date }}</td>
+                                    <td>
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <button name="lockdate" value="{{date}}" type="submit" style="padding: 0.1rem 0.2rem; font-size: 0.75rem;" class="btn btn-outline-dark">Lock Date</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </center>
+                
+            </div>
         </div>
     </div>
 </div>
