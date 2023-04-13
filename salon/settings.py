@@ -33,9 +33,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
-# List of domains allowed to allowed to make request to this Web App
-CSRF_TRUSTED_ORIGINS = ['']
-
 # Application definition
 
 INSTALLED_APPS = [
