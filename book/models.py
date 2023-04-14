@@ -15,7 +15,7 @@ class Appointment(models.Model):
     day = models.DateField(default=datetime.now)
     time = models.CharField(max_length=10, choices=TIME_CHOICES, default="8 AM")
     deposit = models.IntegerField(null=True)
-    price = models.IntegerField(null=True)
+    price = models.DecimalField(max_digits=5, decimal_places=2)
     time_ordered = models.DateTimeField(default=datetime.now)
     update_count = models.IntegerField(default=0, null=False)
     
