@@ -4,8 +4,8 @@ from django.db import models
 
 class Braid(models.Model):
     name = models.CharField(max_length=50)
-    duration = models.DurationField(default="00:00")
-    description = models.CharField(max_length=50, blank=True)
+    caption = models.DurationField(default="00:00")
+    description = models.CharField(max_length=250, blank=True)
     price = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
@@ -22,8 +22,8 @@ class Braid(models.Model):
 
 class Crochet(models.Model):
     name = models.CharField(max_length=50)
-    duration = models.DurationField(default="00:00")
-    description = models.CharField(max_length=50, blank=True)
+    caption = models.DurationField(default="00:00")
+    description = models.CharField(max_length=250, blank=True)
     price = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
@@ -40,8 +40,8 @@ class Crochet(models.Model):
 
 class Twist(models.Model):
     name = models.CharField(max_length=50)
-    duration= models.DurationField(default="00:00")
-    description = models.CharField(max_length=50, blank=True)
+    caption= models.DurationField(default="00:00")
+    description = models.CharField(max_length=250, blank=True)
     price = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
@@ -58,8 +58,8 @@ class Twist(models.Model):
 
 class Natural_hair(models.Model):
     name = models.CharField(max_length=50)
-    duration = models.DurationField(default="00:00")
-    description = models.CharField(max_length=50, blank=True)
+    caption = models.DurationField(default="00:00")
+    description = models.CharField(max_length=250, blank=True)
     price = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
@@ -76,8 +76,8 @@ class Natural_hair(models.Model):
 
 class Other_service(models.Model):
     name = models.CharField(max_length=50)
-    duration = models.DurationField(default="00:00")
-    description = models.CharField(max_length=50, blank=True)
+    caption = models.DurationField(default="00:00")
+    description = models.CharField(max_length=250, blank=True)
     price = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
 
     def __str__(self):
