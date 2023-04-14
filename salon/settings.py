@@ -33,6 +33,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = ['https://*.web-production-31ba.up.railway.app/booking']
+
 # Application definition
 
 INSTALLED_APPS = [
