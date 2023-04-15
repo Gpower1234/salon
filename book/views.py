@@ -13,11 +13,11 @@ def index(request):
 
 def booking(request):
 
-    braid = Braid.objects.all()
-    twist = Twist.objects.all()
-    other_service = Other_service.objects.all()
-    crochet = Crochet.objects.all()
-    natural_hair = Natural_hair.objects.all()
+    braid = Braid.objects.all().order_by('name')
+    twist = Twist.objects.all().order_by('name')
+    other_service = Other_service.objects.all().order_by('name')
+    crochet = Crochet.objects.all().order_by('name')
+    natural_hair = Natural_hair.objects.all().order_by('name')
     
 
     if request.method == 'POST':

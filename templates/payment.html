@@ -68,20 +68,7 @@
         </div>  
         </div>
 
-        {% comment %}
-        <form action="{% url 'payment' %}" method="post" class="stripe-form">
-            {% csrf_token %}
-            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" 
-                data-key="{{ Key }}"
-                data-description="Payment Gateway"
-                data-name="Stripe"
-                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                data-amount="{{ deposit_int }}"
-                data-currency="usd"
-                data-locale="auto">
-            </script>
-        </form>
-        {% endcomment %}
+        
 
     <div style="justify-content:center" id="stripe-form" class="form-popup">
         <div class="form-popup-content">
