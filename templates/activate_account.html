@@ -1,9 +1,69 @@
-{% autoescape off %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activate your account</title>
+    <style>
+        body {
+            line-height: 1.4;
+            background-color: #000;
+        }
 
-Dear {{ user.username }},
+        p {
+            margin-bottom: 1.4em;
+        }
+        
+        h1 {
+            margin-top: 0;
+            font-size: 24px;
+            font-weight: 500;
+        }
 
-Please click on the link below to confirm your registration. 
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+            border-radius: 5px;
+        }
 
-http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+        @media (max-width: 768px) {
+            .container {
+                max-width: 500px;
+            }
+            h1 {
+                font-size: 20px;
+            }
+        }
 
-{% endautoescape %}
+        @media (max-width: 576px) {
+            .container {
+                max-width: 400px;
+            }
+            h1 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dear {{ user }},</h1>
+
+        <p>Thanks for creating an account with <b style="color: teal;">Goodnesshairbraid!</b> We're excited to have you on board</p>
+        
+        <p>Please click on the link below to confirm your email address.</p> 
+        
+        <p><a style="color: teal; border-radius: 5px; text-decoration: none; display:inline-block; margin-top: 1.4em">https://{{ domain }}{% url 'activate' uidb64=uid token=token %}</a></p>
+        
+        <p>Let us know if you have any questions or feedback. We're always here to help.</p>
+        <p>Best regards,</p>
+        <p style="font-size: 16px;">The Goodnesshairbraid Team</p> 
+    </div>
+</body>
+</html>
+
+
+

@@ -28,7 +28,7 @@ def SignUpView(request):
          
             mail_subject = "Activate your account."
             message = render_to_string("activate_account.html", {
-            'user': user.username,
+            'user': user.first_name,
             'domain': get_current_site(request).domain,
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
             'token': token_generator.make_token(user),
@@ -66,7 +66,7 @@ def activateEmail(request, user, to_email):
     if email.send:
         messages.success(request, f"A mail with verification link has been sent to {to_email}")
     else:
-        messages.error(request, f'There was an issue sending mail to {to_email}')
+        messages.error(request, f"There was an issue sending mail to {to_email}")
 
 
 def activate(request, uidb64, token):

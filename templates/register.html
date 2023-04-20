@@ -6,6 +6,15 @@
 
 {% block body %}
 
+{% if user.is_authenticated %}
+
+<div class="shadow p-4 mb-5 bg-body bg-body rounded text-black  m-5 ">
+  <h1 class="p-2  me-3">Sign out first to access the Signup page</h1>
+  <a href="{% url 'logout' %}"  style="background-color: teal; color: #fff; font-family: Trebuchet MS;" class="btn shadow text-center">Sign out</a>
+</div>
+
+{% else %}
+
 <section class="vh-100" style="margin-top: 50px;">
   <div class="container-fluid h-custom" style="padding-bottom: 200px;">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -46,5 +55,6 @@
  
 </section>
 
+{% endif %}
 
 {% endblock %}
