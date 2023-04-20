@@ -11,6 +11,19 @@
             background-color: #000;
         }
 
+        button {
+            background-color: teal;
+            border: none;
+            color: #fff;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
         p {
             margin-bottom: 1.4em;
         }
@@ -56,7 +69,11 @@
         
         <p>Please click on the link below to confirm your email address.</p> 
         
-        <a style="color: teal; border-radius: 5px; text-decoration: none; display:inline-block; margin-top: 1.4em; font-size: 18px" href="https://{{ domain }}{% url 'activate' uidb64=uid token=token %}">Verify email address</a>
+        <a style="color: teal; border-radius: 5px; text-decoration: none; display:inline-block; margin-top: 1.4em; font-size: 18px" href="https://{{ domain }}{% url 'activate' uidb64=uid token=token %}">
+            <button>
+                Verify email address 
+            </button>
+        </a>
         
         <p>Let us know if you have any questions or feedback. We're always here to help.</p>
         <p>Best regards,</p>
