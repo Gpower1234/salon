@@ -13,6 +13,7 @@
 
         button {
             background-color: teal;
+            border-radius: 10%;
             border: none;
             color: #fff;
             padding: 15px 32px;
@@ -69,7 +70,7 @@
         
         <p>Please click on the link below to confirm your email address.</p> 
         
-        <a style="color: teal; border-radius: 5px; text-decoration: none; display:inline-block; margin-top: 1.4em; font-size: 18px" href="https://{{ domain }}{% url 'activate' uidb64=uid token=token %}">
+        <a style="color: teal; border-radius: 5px; text-decoration: none; display:inline-block; margin-top: 1.4em; font-size: 18px; justify-content:center" href="https://{{ domain }}{% url 'activate' uidb64=uid token=token %}">
             <button>
                 Verify email address 
             </button>
