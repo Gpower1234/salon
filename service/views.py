@@ -20,12 +20,16 @@ from django.contrib.auth import get_user_model
 def SignUpView(request):
     
     if request.POST:
+        email = request.POST['email']
         form = RegisterForm(request.POST)
+        if User.objects.filter(email=email).exists():
+            messages.error(request, 'Email already registered with an existing account, please use another Email address')
+            return redirect('signup')
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False
             user.save()
-         
+
             mail_subject = "Activate your account."
             message = render_to_string("activate_account.html", {
             'user': user.first_name,
