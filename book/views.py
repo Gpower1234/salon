@@ -45,6 +45,7 @@ def booking(request):
             'other_service': other_service
         })
 
+
 def bookingDate(request):
     today = datetime.today()
     minDate = today.strftime('%Y-%m-%d')
@@ -527,3 +528,184 @@ def removeDate():
     if lockdates:
         validateWeekdays = [n for n in validateWeekdays if n not in lockdates]
         return validateWeekdays
+
+
+def noneUserBookingDate(request):
+    today = datetime.today()
+    minDate = today.strftime('%Y-%m-%d')
+    deltatime = today + timedelta(days=21)
+    strdeltatime = deltatime.strftime('%Y-%m-%d')
+    maxDate = strdeltatime
+    #Only show the Appointments 21 days from today
+    lockdays = LockDate.objects.all()
+
+    #lockday = list(lockdate)
+    
+    #Calling 'validWeekday' Function to Loop days you want in the next 60 days:
+    weekdays = validWeekday(60)
+    #Only show the days that are not full:
+    
+    
+    if lockdays:
+        validateWeekdays = removeDate()
+
+    else:
+        validateWeekdays = isWeekdayValid(weekdays)
+
+
+    if request.method == 'POST':
+        day = request.POST.get('day')
+
+        if day == None:
+            messages.success(request, "Please Select A Date!")
+            return redirect('noneUserBookingDate')
+
+        #Store day and in django session:
+        request.session['day'] = day
+        
+        return redirect('noneUserBookingTime')
+        
+    return render(request, 'noneUserBookingDate.html', {'weekdays':weekdays, 'validateWeekdays':validateWeekdays})
+
+def noneUserBookingTime(request):
+    date = datetime.now().date()
+    date_str = date.strftime('%Y-%m-%d')
+    now = datetime.now()
+    day = request.POST.get('day')
+    day = request.session.get('day')
+    
+    if day == date_str and now.hour >= 7:
+
+        times = [
+            "2 PM"
+        ]
+
+    else:
+        times = [
+            "8 AM", "2 PM"
+        ] 
+
+    today = datetime.now()
+    minDate = today.strftime('%Y-%m-%d')
+    deltatime = today + timedelta(days=60)
+    strdeltatime = deltatime.strftime('%Y-%m-%d')
+    maxDate = strdeltatime
+
+    #Get stored data from django session:
+    
+    service = request.session.get('service')
+    price = request.session.get('price')
+    
+    #Only show the time of the day that has not been selected before:
+    hour = checkTime(times, day)
+    if request.method == 'POST':
+        time = request.POST.get("time")
+        request.session['time'] = time
+        date = dayToWeekday(day)
+
+        if service != None:
+            if day <= maxDate and day >= minDate:
+                if date == 'Monday' or date == 'Tuesday' or date == 'Wednesday' or date == 'Thursday' or date == 'Friday' or date == 'Saturday' or date == 'Sunday':
+                    if Appointment.objects.filter(day=day).count() < 3:
+                        if Appointment.objects.filter(day=day, time=time).count() < 1:
+                            return redirect('noneUserPayment')
+                        else:
+                            messages.error(request, "The Selected Time Has Been Reserved Before!")
+                    else:
+                        messages.error(request, "The Selected Day Is Full!")
+                else:
+                    messages.error(request, "The Selected Date Is Incorrect")
+            else:
+                    messages.error(request, "The Selected Date Isn't In The Correct Time Period!")
+        else:
+            messages.error(request, "Please Select A Service!")
+
+
+    return render(request, 'noneUserbookingTime.html', {
+        'times':hour,
+        'now': now,
+        'day': day,
+        'price': price, 
+    })
+
+def noneUserPayment(request):
+    Key = settings.STRIPE_PUBLISHABLE_KEY
+    s_key = settings.STRIPE_SECRET_KEY
+    service = request.session.get('service')
+    day = request.session.get('day')
+    price = request.session.get('price')
+    time = request.session.get('time')
+    #deposit = request.session.get('amount')
+    #deposit_int = int(deposit) * 100
+
+    if request.method == 'POST':
+        amount = int(request.POST['amount'])
+        full_name = request.POST['full_name']
+        
+        try:
+    
+            customer = stripe.Customer.create(
+                email = request.POST.get('email'),
+                name = request.POST.get('full_name'),
+                description = "Hair Booking",
+                source=request.POST['stripeToken'],
+            )
+
+        except stripe.error.CardError as e:
+            messages.error(request, 'There was an error charging your card, ensure you have sufficient funds')
+            return redirect('noneUserPayment')
+
+        except stripe.error.RateLimitError as e:
+            messages.error(request, 'Rate Error')
+            return redirect('noneUserPayment')
+
+        except stripe.error.InvalidRequestError as e:
+            messages.error(request, 'Invalid requestor!')
+            return redirect('noneUserPayment')
+
+        except stripe.error.AuthenticationError as e:
+            messages.error(request, 'Invalid API auth')
+            return redirect('noneUserPayment')
+
+        except stripe.error.StripeError as e:
+            messages.error(request, 'Stripe Error')
+            return redirect('noneUserPayment')
+
+        except Exception as e:
+            messages.error(request, 'Error paying with your card at the moment')
+            return redirect('noneUserPayment')
+
+        charge = stripe.Charge.create(
+            customer=customer,
+            amount = amount * 100,
+            currency = 'usd',
+            description='Hair Booking',
+        )
+
+        AppointmentForm = Appointment.objects.get_or_create(
+                name = full_name,
+                service = service,
+                day = day,
+                time = time,
+                price = price,
+                deposit = amount,
+            )
+
+        transRetrive = stripe.Charge.retrieve(
+            charge["id"],
+            api_key = settings.STRIPE_SECRET_KEY
+            )
+            
+        charge.save() # Uses the same API Key.
+
+
+        messages.success(request, f"{full_name} your booking was succesful.")
+
+        return redirect('index')
+    return render(request, 'noneUserPayment.html', {
+        'Key':Key,
+        'service':service,
+        'day':day,
+        'time':time,
+        'price':price,
+    }) 

@@ -27,7 +27,9 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('booking', views.booking, name='booking'),
     path('booking-date', views.bookingDate, name='bookingDate'),
+    path('none-user-booking-date', views.noneUserBookingDate, name='noneUserBookingDate'),
     path('booking-time', views.bookingTime, name='bookingTime'),
+    path('none-user-booking-time', views.noneUserBookingTime, name='noneUserBookingTime'),
     path('user-panel', views.userPanel, name='userPanel'),
     path('user-update/<int:id>', views.userUpdate, name='userUpdate'),
     path('user-update-submit/<int:id>', views.userUpdateSubmit, name='userUpdateSubmit'),
@@ -38,6 +40,7 @@ urlpatterns = [
     path('activate/<uidb64>/<token>/', activate, name='activate'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('payment/', views.payment, name='payment'),
+    path('none-user-payment/', views.noneUserPayment, name='noneUserPayment'),
     path('lock-date/', views.staffLockDate, name='lockDate'),
     path('payment-update/<int:id>', views.paymentUpdate, name='paymentUpdate'),
 

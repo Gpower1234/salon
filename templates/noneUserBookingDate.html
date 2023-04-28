@@ -3,16 +3,13 @@
 {% load static %}
 {% block body %}
 
-
-
-{% if user.is_authenticated %}
 <h1 style="color: #555" class="text-center  mt-3">Online Booking</h1>
 
 
 <p></p>
 <div style="display: flex; justify-content:center">
 <div class="container shadow p-4 mb-3 bg-body rounded text-black  m-5 " style="max-width: 500px; margin: 0 auto">
-    <form method="post" action="{% url 'bookingDate' %}" class="me-2 ms-2" required>
+    <form method="post" action="{% url 'noneUserBookingDate' %}" class="me-2 ms-2" required>
         {% csrf_token %}
 
         <!--input service-->
@@ -33,18 +30,5 @@
     </form>
 </div>
 </div>
-{% else %}
-
-<div class="shadow p-4 mb-5 bg-body bg-body rounded text-black  m-5 ">
-    <h1 class="p-2  me-3">You Are Not Signed in!</h1>
-    <a href="{% url 'login' %}"  style="background-color: teal; color: #fff; font-family: Trebuchet MS;" class="btn shadow text-center">Sign in</a>
-</div>
-
-<div class="shadow p-4 mb-5 bg-body bg-body rounded text-black  m-5 ">
-    <a href="{% url 'noneUserBookingDate' %}"  style="background-color: teal; color: #fff; font-family: Trebuchet MS; display:flex; justify-content: center;" class="btn shadow text-center">Continue booking</a>
-</div>
-
-{% endif %}
-
 
 {% endblock %}
