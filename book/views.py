@@ -621,7 +621,7 @@ def noneUserBookingTime(request):
             messages.error(request, "Please Select A Service!")
 
 
-    return render(request, 'noneUserbookingTime.html', {
+    return render(request, 'noneUserBookingTime.html', {
         'times':hour,
         'now': now,
         'day': day,
