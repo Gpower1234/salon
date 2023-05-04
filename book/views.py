@@ -3,6 +3,8 @@ from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
 from .models import *
 from django.contrib import messages
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 from django.conf import settings
 from service.models import *
 import stripe
@@ -218,8 +220,30 @@ def payment(request):
             
         charge.save() # Uses the same API Key.
 
-
         messages.success(request, f"{user.username} your booking was succesful.")
+
+        try:
+            mail_subject = "Your Booking was successful!"
+            message = render_to_string("email/booking_confirmation.html", {
+            'user': user.first_name,
+            'email': user.email,
+            'service': service,
+            'day': day,
+            'time': time,
+            'price': price,
+            'deposit': amount,
+            })
+
+            send_mail(
+                mail_subject,
+                'Here is the message',
+                settings.EMAIL_HOST_USER,
+                [user.email],
+                html_message=message,
+                fail_silently=False
+                )
+        except:
+            messages.error(request, 'Failed to send confirmation Mail')
 
         return redirect('userPanel')
     return render(request, 'payment.html', {
@@ -245,6 +269,9 @@ def userPanel(request):
 @login_required
 def userUpdate(request, id):
     appointment = Appointment.objects.get(pk=id)
+    service = appointment.service
+    deposit = appointment.deposit
+    price = appointment.price
     updated_count = appointment.update_count
     userdatepicked = appointment.day
     #Copy  booking:
@@ -267,16 +294,20 @@ def userUpdate(request, id):
 
     if request.method == 'POST':
         day = request.POST.get('day')
+        day = request.POST.get('day')
+        service = request.POST.get('service')
         update_count = request.POST.get('update_count')
     
         #Store day in django session:
         request.session['day'] = day
+        request.session['service'] = service
         request.session['update_count'] = update_count
 
         return redirect('userUpdateSubmit', id=id)
 
     return render(request, 'userUpdate.html', {
             'weekdays':weekdays,
+            'service':service, 
             'validateWeekdays':validateWeekdays,
             'delta24': delta24,
             'id': id,
@@ -293,6 +324,7 @@ def userUpdateSubmit(request, id):
     now = datetime.now()
     day = request.POST.get('day')
     day = request.session.get('day')
+    service = request.session.get('service')
     update_count = int(request.session['update_count']) 
     minDate = today.strftime('%Y-%m-%d')
     deltatime = today + timedelta(days=60)
@@ -330,8 +362,28 @@ def userUpdateSubmit(request, id):
                             day = day,
                             time = time,
                             update_count = update_count,
-                        ) 
-                        messages.success(request, "Appointment Updated!")
+                        )
+                        try: 
+                            messages.success(request, "Appointment Updated!")
+                            mail_subject = "Your Booking has been updated!"
+                            message = render_to_string("email/update_confirmation_email.html", {
+                            'user': user.first_name,
+                            'email': user.email,
+                            'service': service,
+                            'day': day,
+                            'time': time,
+                            })
+
+                            send_mail(
+                                mail_subject,
+                                'Here is the message',
+                                settings.EMAIL_HOST_USER,
+                                [user.email],
+                                html_message=message,
+                                fail_silently=False
+                                )
+                        except:
+                            messages.error(request, 'Failed to send confirmation Mail')
                         return redirect('userPanel')
                     else:
                         messages.error(request, "The Selected Time Has Been Reserved Before!")
@@ -353,6 +405,7 @@ def paymentUpdate(request, id):
     user = request.user
     Key = settings.STRIPE_PUBLISHABLE_KEY
     appointment = Appointment.objects.get(pk=id)
+    service = appointment.service
     prev_deposit = appointment.deposit
     price = appointment.price
     balance = price - prev_deposit
@@ -411,12 +464,35 @@ def paymentUpdate(request, id):
             
         charge.save() # Uses the same API Key.
         messages.success(request, f"Your balance payment of ${balance} was succesfull!")
+
+        try:
+            mail_subject = "Your Booking was successful!"
+            message = render_to_string("email/payment_update_email.html", {
+            'user': user.first_name,
+            'email': user.email,
+            'service': service,
+            'price': price,
+            'balance': balance,
+            })
+
+            send_mail(
+                mail_subject,
+                'Here is the message',
+                settings.EMAIL_HOST_USER,
+                [user.email],
+                html_message=message,
+                fail_silently=False
+                )
+        except:
+            messages.error(request, 'Failed to send confirmation Mail')
+        
         return redirect('userPanel')
     return render(request, 'paymentUpdate.html', {
         'current_deposit':balance,
          'Key':Key,
          'appointment':appointment,
          'balance': balance,
+         'user':user,
          })
 
 
@@ -641,6 +717,7 @@ def noneUserPayment(request):
     if request.method == 'POST':
         amount = int(request.POST['amount'])
         full_name = request.POST['full_name']
+        email = request.POST['email']
         
         try:
     
@@ -698,8 +775,30 @@ def noneUserPayment(request):
             
         charge.save() # Uses the same API Key.
 
-
         messages.success(request, f"{full_name} your booking was succesful.")
+
+        try:
+            mail_subject = "Your Booking was successful!"
+            message = render_to_string("email/booking_confirmation.html", {
+            'user': full_name,
+            'email': email,
+            'service': service,
+            'day': day,
+            'time': time,
+            'price': price,
+            'deposit': amount,
+            })
+
+            send_mail(
+                mail_subject,
+                'Here is the message',
+                settings.EMAIL_HOST_USER,
+                [email],
+                html_message=message,
+                fail_silently=False
+                )
+        except:
+            messages.error(request, 'Failed to send confirmation Mail')
 
         return redirect('index')
     return render(request, 'noneUserPayment.html', {

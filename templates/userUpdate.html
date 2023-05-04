@@ -19,6 +19,7 @@
                         <div class="mt-3">
                             <h3 style="color: #555;">Select Day:</h3>
                             <input type="checkbox" checked hidden name="update_count" value="{{ updated_count }}">
+                            <input type="checkbox" checked hidden name="service" value="{{ service }}">
                             <select style="margin-top: 20px" class="form-select fs-3" name="day">
                                 {% for validateWeekday in validateWeekdays %}
                                 <option style="color: #777;" value="{{validateWeekday}}">{{validateWeekday}}</option>

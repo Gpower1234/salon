@@ -31,7 +31,7 @@ def SignUpView(request):
             user.save()
 
             mail_subject = "Activate your account."
-            message = render_to_string("activate_account.html", {
+            message = render_to_string("email/activate_account.html", {
             'user': user.first_name,
             'domain': get_current_site(request).domain,
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -42,10 +42,10 @@ def SignUpView(request):
             send_mail(
                 mail_subject,
                 'Here is the message',
-                 settings.EMAIL_HOST_USER,
-                 [user.email],
-                 html_message=message,
-                 fail_silently=False
+                settings.EMAIL_HOST_USER,
+                [user.email],
+                html_message=message,
+                fail_silently=False
                 )
             if send_mail:
                 messages.success(request, f"A mail with verification link has been sent to {user.email}")
