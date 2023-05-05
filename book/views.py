@@ -720,7 +720,8 @@ def noneUserPayment(request):
         email = request.POST['email']
         
         try:
-    
+
+
             customer = stripe.Customer.create(
                 email = request.POST.get('email'),
                 name = request.POST.get('full_name'),

@@ -6,7 +6,7 @@ class Braid(models.Model):
     name = models.CharField(max_length=50)
     duration = models.DurationField(default="00:00")
     caption = models.CharField(max_length=250, blank=True)
-    price = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    price = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -24,7 +24,7 @@ class Crochet(models.Model):
     name = models.CharField(max_length=50)
     duration = models.DurationField(default="00:00")
     caption = models.CharField(max_length=250, blank=True)
-    price = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    price = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -42,7 +42,7 @@ class Twist(models.Model):
     name = models.CharField(max_length=50)
     duration= models.DurationField(default="00:00")
     caption = models.CharField(max_length=250, blank=True)
-    price = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
+    price = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -60,7 +60,7 @@ class Natural_hair(models.Model):
     name = models.CharField(max_length=50)
     duration = models.DurationField(default="00:00")
     caption = models.CharField(max_length=250, blank=True)
-    price = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
+    price = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -78,7 +78,7 @@ class Other_service(models.Model):
     name = models.CharField(max_length=50)
     duration = models.DurationField(default="00:00")
     caption = models.CharField(max_length=250, blank=True)
-    price = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    price = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.name
