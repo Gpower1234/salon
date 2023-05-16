@@ -3,7 +3,19 @@
 {% load static %}
 {% block body %}
 
+<head>
+    <style>
+     
+    </style>
+</head>
+
+<body>
 <h1 style="color: #555" class="text-center  mt-3">Booking Date</h1>
+
+<div>
+    
+</div>
+
 
 <div style="display: flex; justify-content:center">
 <div class="container shadow p-4 mb-3 bg-body rounded text-black text-center m-5"  style="max-width: 500px; margin: 0 auto">
@@ -15,7 +27,10 @@
             <!--input day-->
             <div class="mt-3">
                 <div class="text-center">
+                    {% comment %}
                     <img style="height: 60px; width: 80px;" src="{% static 'media/image5.jpeg' %}">
+                    {% endcomment %}
+                    <div id="calender" style="font-size: 8px;"></div>
                 </div>
                 <h5 style="color: #555;">Select Day:</h5>
                 <select style="margin-top: 20px" class="form-select fs-3 text-center" name="day">
@@ -32,4 +47,57 @@
 </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', generateCalender);
+
+    function generateCalender() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = today.getMonth();
+        const currentDay = today.getDate();
+
+        const monthNames = [
+        "January", "February", "March", "April", "May", "June", "July",
+         "August", "September", "October", "November", "December"];
+
+        const monthName = monthNames[month]
+
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        let calenderHTML = '<h5 style="color: green">' + monthName + ' ' + year + '</h5><table class="table"><tr>';
+
+        const firstDayIndex = new Date(year, month, 1).getDay();
+
+        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+        
+        // Displays days of the week
+        calenderHTML += '<tr>';
+            for (let i = 0; i < 7; i++) {
+                calenderHTML += '<th style="font-size: 10px">' + daysOfWeek[i] + '</th>';
+            }
+
+        calenderHTML += '</tr>';
+
+        for (let i=0; i < firstDayIndex; i++) {
+            calenderHTML += '<td></td>';
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            if(day === currentDay) {
+                calenderHTML += '<td class="current-day text-center" style="color: red; font-size: 12px">' + day + '</td>';
+            } else {
+                calenderHTML += '<td class="text-center" style="font-size: 10px;">' + day + '</td>';
+            }
+
+            if ((day + firstDayIndex) % 7 === 0) {
+                calenderHTML += '<tr></tr>';
+            }
+        }
+        
+        calenderHTML += '<tr></table>';
+        document.getElementById('calender').innerHTML = calenderHTML;
+    }
+</script>
+
+</body>
 {% endblock %}
