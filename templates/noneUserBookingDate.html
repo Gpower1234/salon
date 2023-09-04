@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<h1 style="color: #555" class="text-center  mt-3">Booking Date</h1>
+<h1 style="color: teal" class="text-center  mt-3">Booking Date</h1>
 
 <div>
     
@@ -32,10 +32,10 @@
                     {% endcomment %}
                     <div id="calender"></div>
                 </div>
-                <h5 style="color: #555;">Select Day:</h5>
+                <h5 style="color: #111;">Select Day:</h5>
                 <select style="margin-top: 20px" class="form-select fs-3 text-center" name="day">
                     {% for validateWeekday in validateWeekdays %}
-                    <option style="color: #777;" value="{{validateWeekday}}">{{validateWeekday}}</option>
+                    <option style="color: #444;" value="{{validateWeekday}}">{{validateWeekday}}</option>
                     {% endfor %}
                 </select>
             </div>

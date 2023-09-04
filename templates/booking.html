@@ -230,7 +230,7 @@
     </script>
 </head>
 
-<h1 style="color: #555" class="text-center  mt-2">Booking Service</h1>
+<h1 style="color: teal" class="text-center  mt-2">Booking Service</h1>
 <div style="display: flex; justify-content:center">
 <div class="container shadow p-4 mb-3 bg-body rounded text-black  m-3" style="max-width: 500px; margin: 0 auto">
     
@@ -240,8 +240,8 @@
             <div class="text-center">
                 <img style="height: 120px; width: 120px; border-radius: 50%; margin-bottom: 15px" src="{% static 'media/image6.jpg' %}">
             </div>
-            <h5 class="" id="category" style="color: #555;">Select Category:</h5>
-            <h5 class="" id="type" style="display: none; color: #555;">Select Type:</h5>
+            <h5 class="" id="category" style="color: #111;">Select Category:</h5>
+            <h5 class="" id="type" style="display: none; color: #111;">Select Type:</h5>
 
             <div style="margin-top: 20px">
                 <div id="brand1" style="display: block;">
@@ -261,7 +261,7 @@
                                     <div class="card-body">
                                         <input style="opacity: 0.7;" checked hidden type="radio" value="{{ instance.name }}" name="service">
                                         <h6 class="card-title">{{ instance.name }}</h6>
-                                        <p style="font-size: 11px; opacity: 0.7" class="card-text">{{ instance.caption }}</p>
+                                        <p style="font-size: 11px; opacity: 0.9" class="card-text">{{ instance.caption }}</p>
                                         <p class="card-text">{{ instance.formatted_work_time }}</p>
                                         {% if instance.price %}
                                         <p class="card-text" style="font-weight: 600;">@  ${{ instance.price }}</p>
